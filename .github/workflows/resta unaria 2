@@ -1,0 +1,45 @@
+# Restar m de n en unario: entrada n ceros, 'C', m ceros
+input: '000C00000'
+blank: 'B'
+start state: q0
+table:
+  q0:
+    0: {write: 0, R: q1}
+    C: {write: C, R: q6}
+  
+  q1:
+    0: {write: 0, R}
+    C: {write: C, R: q2}
+  
+  q2:
+    X: {write: X, R}
+    0: {write: X, L: q3}
+    B: {write: B, L: q6}
+
+  q3:
+    0: {write: 0, L}
+    C: {write: C, L}
+    X: {write: X, L}
+    B: {write: B, R: q4}
+
+  q4:
+    0: {write: X, R: q7}
+    X: {write: B, R}
+    C: {write: B, R: q5}
+
+  q5:
+    X: {write: B, R}
+    C: {write: B, R}
+    # Estado final
+
+
+  q6:
+    0: {write: 0, L}
+    X: {write: X, L}
+    C: {write: C, L}
+    B: {write: B, R: q5}
+    
+  q7:
+    C: {write: C, R: q6}
+    0: {write: 0, R: q1}
+

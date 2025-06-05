@@ -1,0 +1,49 @@
+# Máquina que acepta: L = { a^n b^m a^{n+m} | n, m >= 1 }
+input: 'abaaaaa'
+blank: 'B'
+start state: q0
+final states: [q9]
+table:
+  q0:
+    a: {write: X, R: q1}
+    b: {write: b, R: q4}
+
+  q1:
+    a: {write: a, R: q1}
+    b: {write: b, R: q2}
+
+  q2:
+    b: {write: b, R: q2}
+    Z: {write: Z, R: q2}
+    a: {write: Z, L: q3}
+
+  q3:
+    a: {write: a, L: q3}
+    b: {write: b, L: q3}
+    Z: {write: Z, L: q3}
+    X: {write: X, R: q0}
+
+  q4:
+    b: {write: b, L: q5}
+    Z: {write: Z, L: q5}
+
+  q5:
+    b: {write: Y, R: q6}
+    Z: {write: Z, R: q8}
+
+  q6:
+    a: {write: Z, L: q7}
+    b: {write: b, R: q6}
+    Z: {write: Z, R: q6}
+    
+  q7:
+    b: {write: b, L: q7}
+    Z: {write: Z, L: q7}
+    Y: {write: Y, R: q5}
+    
+  q8:
+    Z: {write: Z, R: q8}
+    B: {write: B, L: q9}
+
+  q9:
+    # Estado de aceptación
